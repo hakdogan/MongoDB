@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      template="/template.xhtml">
+    
+    <ui:define name="top">
+        <h1>Kodcu.Com Tutorial - Using NoSQL with JPA</h1>
+    </ui:define>
+    
+    <ui:define name="content">
+        
+        <h:form id="articleForm">
+            <p:growl id="growl"/>
+            <h:panelGrid columns="2" cellpadding="2" cellspacing="2">
+                <p:panel styleClass="registrationForm" header="Registration Form">
+
+                    <h:panelGrid id="registrationPanelGrid" columns="2" cellpadding="2" cellspacing="2">
+                        <h:outputLabel value="Category"/>
+                        <p:inputText value="#{myBean.categories}" styleClass="inputTextWidth"/>
+
+                        <h:outputLabel value="Title"/>
+                        <p:inputText value="#{myBean.article.title}" required="#{param['saveArticle']=='true'}" requiredMessage="The title field is required." styleClass="inputTextWidth"/>
+
+                        <h:outputLabel value="Content"/>
+                        <p:inputTextarea value="#{myBean.article.content}" required="#{param['saveArticle']=='true'}" requiredMessage="The content field is required." styleClass="inputTextAreaWidthHeight"/>
+
+                        <h:outputLabel value="Author"/>
+                        <p:inputText value="#{myBean.article.author}" required="#{param['saveArticle']=='true'}" requiredMessage="The author field is required." styleClass="inputTextWidth"/>
+
+                        <h:outputLabel value="Tags"/>
+                        <p:inputText value="#{myBean.tags}" styleClass="inputTextWidth" />
+
+                    </h:panelGrid>
+                </p:panel>
+
+                <p:panel header="Article Directory" styleClass="articleDirectory">
+                    <p:dataTable id="articleTable" var="article" value="#{myBean.articleList}" selectionMode="single" 
+                                 selection="#{myBean.selectArticle}" paginator="true" paginatorPosition="bottom" rows="5"
+                                 rowKey="#{article.id}">
+                        
+                        <p:ajax event="rowSelect" listener="#{myBean.articleSelect}" 
+                                update=":articleForm:registrationPanelGrid :articleForm:removeArticle"/>
+                        
+                        <p:column width="200">
+                            <f:facet name="header">
+                                <h:outputLabel value="Title"/>
+                            </f:facet>
+                            <h:outputLabel value="#{article.title}"/>
+                        </p:column>
+
+                        <p:column width="350">
+                            <f:facet name="header">
+                                <h:outputLabel value="Content"/>
+                            </f:facet>
+                            <h:outputLabel value="#{article.content}"/>
+                        </p:column>
+                        
+                        <p:column width="200">
+                            <f:facet name="header">
+                                <h:outputLabel value="Author"/>
+                            </f:facet>
+                            <h:outputLabel value="#{article.author}"/>
+                        </p:column>
+                        
+                        <p:column width="40">
+                            <f:facet name="header">
+                                <h:outputLabel value="Date"/>
+                            </f:facet>
+                            <h:outputLabel value="#{article.date}">
+                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                            </h:outputLabel>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:panel>
+                
+                <h:panelGroup>
+                    <p:commandButton id="newArticle" action="#{myBean.initArticle}" value="New" 
+                                     update="registrationPanelGrid articleTable removeArticle"/>
+                    <p:commandButton id="saveArticle" action="#{myBean.saveArticle}" value="Save" 
+                                     update="registrationPanelGrid articleTable growl">
+                        <f:param name="saveArticle" value="true"/>
+                    </p:commandButton>
+                    <p:commandButton id="removeArticle" disabled="#{null == myBean.selectArticle}" action="#{myBean.removeArticle}" 
+                                     value="Remove" update="registrationPanelGrid articleTable @this"/>
+                </h:panelGroup>
+            </h:panelGrid>
+            
+        </h:form>
+    </ui:define>
+</ui:composition>

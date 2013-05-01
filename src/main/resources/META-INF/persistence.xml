@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+        version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
+    <persistence-unit name="kodcuMongo" transaction-type="RESOURCE_LOCAL">
+        <class>com.kodcu.entity.Article</class>
+        <class>com.com.kodcu.entity.Categories</class>
+        <class>com.kodcu.entity.Tags</class>
+        <properties>
+            <property name="eclipselink.target-database" value="org.eclipse.persistence.nosql.adapters.mongo.MongoPlatform"/>
+            <property name="eclipselink.nosql.connection-spec" value="org.eclipse.persistence.nosql.adapters.mongo.MongoConnectionSpec"/>
+            <property name="eclipselink.nosql.property.mongo.port" value="27017"/>
+            <property name="eclipselink.nosql.property.mongo.host" value="localhost"/>
+            <property name="eclipselink.nosql.property.mongo.db" value="kodcu"/>
+            <property name="eclipselink.logging.level" value="FINEST"/>
+        </properties>
+    </persistence-unit>
+</persistence>

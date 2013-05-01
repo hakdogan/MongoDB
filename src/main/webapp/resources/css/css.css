@@ -1,0 +1,37 @@
+/* 
+    Document   : css
+    Created on : Apr 29, 2013, 7:24:08 PM
+    Author     : hakdogan
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body { 
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11pt;
+    margin: 2px;
+}
+
+h1 {
+    background-color: red;
+    color: white;
+}
+
+.registrationForm {
+    width: 350px;
+    height: 275px;
+}
+
+.articleDirectory {
+    width: 950px;
+    height: 275px;
+}
+
+.inputTextWidth{
+    width: 210px;
+}
+
+.inputTextAreaWidthHeight{
+    width: 210px;
+    height: 60px;
+}
