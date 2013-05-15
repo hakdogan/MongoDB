@@ -4,7 +4,7 @@
         version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
     <persistence-unit name="kodcuMongo" transaction-type="RESOURCE_LOCAL">
         <class>com.kodcu.entity.Article</class>
-        <class>com.com.kodcu.entity.Categories</class>
+        <class>com.kodcu.entity.Categories</class>
         <class>com.kodcu.entity.Tags</class>
         <properties>
             <property name="eclipselink.target-database" value="org.eclipse.persistence.nosql.adapters.mongo.MongoPlatform"/>
