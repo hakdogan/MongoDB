@@ -87,11 +87,11 @@ public class UsingNativeJavaDriver {
         System.out.println("\n***************** updateRecord *****************");
         
         BasicDBObject newDocument = new BasicDBObject();
-	newDocument.put(updatedField, updatedFieldNewValue);
+	    newDocument.put(updatedField, updatedFieldNewValue);
  
-	BasicDBObject updatedDocument = new BasicDBObject();
-	updatedDocument.put("$set", newDocument);
- 
+        BasicDBObject updatedDocument = new BasicDBObject();
+        updatedDocument.put("$set", newDocument);
+
         System.out.println("Updated records: " + collection.update(findDocument(findField, findFieldValue), updatedDocument, false, true).getN());
         System.out.println(updatedDocument);
         System.out.println("***************** updateRecord *****************");
@@ -103,7 +103,7 @@ public class UsingNativeJavaDriver {
     
     public static BasicDBObject findDocument(String findField, String findFieldValue){
         BasicDBObject document = new BasicDBObject();
-	document.put(findField, findFieldValue);
+	    document.put(findField, findFieldValue);
         
         return document;
     }
@@ -129,7 +129,7 @@ public class UsingNativeJavaDriver {
         
         fields.put("_id", 0);
         fields.put("speaker", 1);
-        //fields.put("date", 1);
+        fields.put("date", 1);
         fields.put("time", 1);
         
         DBObject project = new BasicDBObject("$project", fields);
