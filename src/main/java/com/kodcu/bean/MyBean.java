@@ -101,31 +101,37 @@ public class MyBean {
     
     public void saveArticle(){
         
-        em.getTransaction().begin();
-        
-        article.getCategoryLists().clear();
-        article.getTagLists().clear();
-        
-        String[] arrayCategory = categories.replace(" ", "").split(",");
-        for(int i = 0; i < arrayCategory.length; i++){
-            article.getCategoryLists().add(new Categories(arrayCategory[i]));
+        try {
+            em.getTransaction().begin();
+
+            article.getCategoryLists().clear();
+            article.getTagLists().clear();
+
+            String[] arrayCategory = categories.replace(" ", "").split(",");
+            for(int i = 0; i < arrayCategory.length; i++){
+                article.getCategoryLists().add(new Categories(arrayCategory[i]));
+            }
+
+            String[] arrayTags = tags.replace(" ", "").split(",");
+            for(int i = 0; i < arrayTags.length; i++){
+                article.getTagLists().add(new Tags(arrayTags[i]));
+            }
+
+            article.setDate(new Date());
+
+
+            if(null == article.getId())
+                em.persist(article);
+            else
+                em.merge(article);
+
+            em.getTransaction().commit();
+            int g = 2 / 0;
+            initArticle();
+        } catch (Exception ex){
+            System.out.println("Exception: " + ex.toString());
+            em.getTransaction().rollback();
         }
-        
-        String[] arrayTags = tags.replace(" ", "").split(",");
-        for(int i = 0; i < arrayTags.length; i++){
-            article.getTagLists().add(new Tags(arrayTags[i]));
-        }
-        
-        article.setDate(new Date());
-        
-        
-        if(null == article.getId())
-            em.persist(article);
-        else
-            em.merge(article);
-        
-        em.getTransaction().commit();
-        initArticle();
     }
     
     public void removeArticle(){
